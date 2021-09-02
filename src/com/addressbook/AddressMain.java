@@ -19,16 +19,17 @@ public class AddressMain {
 		while(choice != EXIT) {
 
 			System.out.println("Address book options");
-			System.out.println("1) Add Contact\n2) Edit Contact(not done)\n3) Display Contact\n"+EXIT+" to exit");
+			System.out.println("1) Add Contact\n2) Edit Contact\n3) Display Contact\n"+EXIT+" to exit");
 			Scanner r = new Scanner(System.in);
 			choice=r.nextInt(); //take user choice
 
-			switch(choice)
-			{
+			switch(choice) {
 			case 1:addContact(); //Add new contact
 			break;
-//			case 2: editContact(); //Edit contact(not done)
-//			break;
+			case 2:System.out.println("Enter the contact name to be edited");	
+			String name=sc.next();
+			editContact(name); //Edit contact(not done)
+			break;
 			case 3:displayContact(); //display
 			break;
 
@@ -62,7 +63,46 @@ public class AddressMain {
 		Contact contact = new Contact(first_name,last_name,address,city,state,zip,phone_number,email);
 		Clist.add(contact); //Add to list
 	}
-	
+
+	public static void editContact(String name) {
+		for(Contact item:Clist)
+		{
+			if(item.first_name.equals(name)) {
+				Contact personedit = item;
+				System.out.println("First Name:");
+				String first_name=sc.next();
+				personedit.first_name=first_name;
+				System.out.println("Last Name:");
+				String last_name=sc.next();
+				personedit.last_name=last_name;
+				System.out.println("Address:");
+				String address=sc.next();
+				personedit.address=address;
+				System.out.println("City:");
+				String city=sc.next();
+				personedit.city=city;
+				System.out.println("State:");
+				String state=sc.next();
+				personedit.state=state;
+				System.out.println("zip code:");
+				String zip=sc.next();
+				personedit.zip=zip;
+				System.out.println("Phone number:");
+				String phone_number=sc.next();
+				personedit.phone_number=phone_number;
+				System.out.println("E-mail:");
+				String email=sc.next();
+				personedit.email=email;
+			}
+			else
+			{
+				System.out.println("Match not found!");
+			}
+
+		}
+
+	}
+
 	/**
 	 * @method to display contact
 	 */

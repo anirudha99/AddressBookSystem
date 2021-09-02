@@ -3,14 +3,14 @@ package com.addressbook;
 public class Contact {
 
 	//class variables
-	private String first_name;
-	private String last_name;
-	private String address;
-	private String city;
-	private String state;
-	private String zip;
-	private String phone_number;
-	private String email;
+	public String first_name;
+	public String last_name;
+	public String address;
+	public String city;
+	public String state;
+	public String zip;
+	public String phone_number;
+	public String email;
 
 	/**
 	 * @param first_name
