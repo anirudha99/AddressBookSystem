@@ -1,7 +1,7 @@
 package com.addressbook;
 
 public class Contact {
-	
+
 	//class variables
 	private String first_name;
 	private String last_name;
@@ -11,7 +11,7 @@ public class Contact {
 	private String zip;
 	private String phone_number;
 	private String email;
-	
+
 	/**
 	 * @param first_name
 	 * @param last_name
@@ -36,24 +36,9 @@ public class Contact {
 
 	@Override
 	public String toString() {
-		return "Contact [first_name=" + first_name + ", last_name=" + last_name + ", address=" + address + ", city="
+		return "Contact [FirstName=" + first_name + ", LastName=" + last_name + ", address=" + address + ", city="
 				+ city + ", state=" + state + ", zip=" + zip + ", phone_number=" + phone_number + ", email=" + email
 				+ "]";
 	}
-	
-//	/**
-//	 * @method to display contact details
-//	 */
-//	public void display()
-//	{
-//		System.out.println("First Name:"+first_name);
-//		System.out.println("Last Name:"+last_name);
-//		System.out.println("Address:"+address);
-//		System.out.println("City:"+city);
-//		System.out.println("State:"+state);
-//		System.out.println("Zip:"+zip);
-//		System.out.println("Phone number"+phone_number);
-//		System.out.println("E-mail:"+email);
-//	}
 
 }
