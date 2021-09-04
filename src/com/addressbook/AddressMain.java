@@ -20,8 +20,8 @@ public class AddressMain {
 
 			System.out.println("Address book options");
 			System.out.println("1) Add Contact\n2) Edit Contact\n3) Display Contact\n4) Delete Contact\n"+EXIT+" to exit");
-			Scanner r = new Scanner(System.in);
-			choice=r.nextInt(); //take user choice
+			Scanner s = new Scanner(System.in);
+			choice=s.nextInt(); //take user choice
 
 			switch(choice) {
 			case 1:addContact(); //Add new contact
