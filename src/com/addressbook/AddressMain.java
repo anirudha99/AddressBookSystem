@@ -69,6 +69,10 @@ public class AddressMain {
 		Clist.add(contact); //Add to list
 	}
 
+	/**
+	 * @method to edit contacts
+	 * @param name
+	 */
 	public static void editContact(String name) {
 		for(Contact item:Clist)
 		{
@@ -114,6 +118,11 @@ public class AddressMain {
 			System.out.println(contact);
 	}
 
+	/**
+	 * @method to delete contact using names
+	 * @param first_name
+	 * @param last_name
+	 */
 	public static void deleteContact(String first_name,String last_name) {
 		for(Contact item:Clist) {
 			if(item.first_name.equals(first_name) && item.last_name.equals(last_name) ) {
