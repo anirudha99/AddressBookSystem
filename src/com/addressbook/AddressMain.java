@@ -19,7 +19,7 @@ public class AddressMain {
 		while(choice != EXIT) {
 
 			System.out.println("Address book options");
-			System.out.println("1) Add Contact\n2) Edit Contact\n3) Display Contact\n"+EXIT+" to exit");
+			System.out.println("1) Add Contact\n2) Edit Contact\n3) Display Contact\n4) Delete Contact\n"+EXIT+" to exit");
 			Scanner r = new Scanner(System.in);
 			choice=r.nextInt(); //take user choice
 
@@ -32,7 +32,12 @@ public class AddressMain {
 			break;
 			case 3:displayContact(); //display
 			break;
-
+			case 4:System.out.println("Enter First name of the contact to be deleted");
+			String first_name = sc.next();
+			System.out.println("Enter Last name of the contact to be deleted");
+			String last_name = sc.next();
+			deleteContact(first_name,last_name);
+			break;
 			}
 		}
 		System.out.println("Goodbye!");
@@ -98,9 +103,7 @@ public class AddressMain {
 			{
 				System.out.println("Match not found!");
 			}
-
 		}
-
 	}
 
 	/**
@@ -109,6 +112,19 @@ public class AddressMain {
 	public static void displayContact() {
 		for(Contact contact:Clist)
 			System.out.println(contact);
+	}
+
+	public static void deleteContact(String first_name,String last_name) {
+		for(Contact item:Clist) {
+			if(item.first_name.equals(first_name) && item.last_name.equals(last_name) ) {
+				Contact persondelete = item;
+				Clist.remove(persondelete);
+				System.out.println("Contact deleted!");
+			}
+			else {
+				System.out.println("Person not found!");
+			}
+		}
 	}
 
 }
