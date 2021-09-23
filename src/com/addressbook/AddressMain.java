@@ -8,7 +8,7 @@ public class AddressMain {
 
 	static Map<String,AddressBook> addressBook = new HashMap<>();
 
-	static Scanner sc= new Scanner(System.in);
+	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book System!"); //Welcome message
@@ -48,9 +48,9 @@ public class AddressMain {
 		System.out.println("Enter the addressbook name");
 		String bookName = sc.next();
 		
-		AddressBook book=addressBook.get(bookName);
+		AddressBook book = addressBook.get(bookName);
 		if(book != null) {
-			System.out.println("Already has a address book of that name");
+			System.out.println("Already has a address book of that name! Enter new name!");
 		}
 		else {
 			AddressBook addbook = new AddressBook(bookName);
@@ -79,7 +79,7 @@ public class AddressMain {
 	public static void editContact() {
 		System.out.println("Enter the addressbook name");
 		String bookName = sc.next();
-		AddressBook addbook=addressBook.get(bookName);
+		AddressBook addbook = addressBook.get(bookName);
 		if(addbook == null) {
 			System.out.println("Address book is not found!!");
 		}
@@ -111,7 +111,7 @@ public class AddressMain {
 	public static void deleteContact() {
 		System.out.println("Enter the addressbook name");
 		String bookName = sc.next();
-		AddressBook addbook=addressBook.get(bookName);
+		AddressBook addbook = addressBook.get(bookName);
 		if(addbook == null) {
 			System.out.println("Address book is not found!!");
 		}
