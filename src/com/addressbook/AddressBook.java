@@ -17,6 +17,9 @@ public class AddressBook {
 	static Map<String,Contact> addressBook = new HashMap<>();
 
 
+	/**
+	 * add contact 
+	 */
 	public void addContact() {
 		System.out.println("Enter the Contact Details");
 		System.out.println("Enter the first name");
@@ -55,6 +58,9 @@ public class AddressBook {
 		}
 	}
 
+	/**
+	 * edit contact
+	 */
 	public void editContactPerson() {
 		System.out.println("enter the first name");
 		String fname = sc.nextLine();
@@ -122,6 +128,9 @@ public class AddressBook {
 		}
 	}
 
+	/**
+	 * delete contact
+	 */
 	public void deleteContactPerson() {
 		
 		System.out.println("Enter First name of the contact to be deleted");
@@ -142,6 +151,9 @@ public class AddressBook {
 		}
 	}
 
+	/**
+	 * print contact
+	 */
 	public void print() {
 		for(Contact c:addressBook.values()) {
 			System.out.println(c);
