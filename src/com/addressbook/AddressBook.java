@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 public class AddressBook {
 	String addressBookName;
-	
+
 	static Scanner sc = new Scanner(System.in);
 
 	Map<String, Contact> contacts;
@@ -213,6 +213,10 @@ public class AddressBook {
 	 * method to search by the place 
 	 */
 	public void search(String place) {
+
+		Map<String, Contact> statesMap = new HashMap<>();
+		Map<String, Contact> cityMap = new HashMap<>();
+
 		Set<Map.Entry<String, Contact>> entries = contacts.entrySet();
 		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
 
@@ -223,13 +227,23 @@ public class AddressBook {
 		Stream<String> keysStream = keySet.stream();
 
 		valuesStream.anyMatch((x) -> {
-			if (x.city.equals(place) || x.state.equals(place)) {
-				System.out.println(x);
+			if (x.state.equals(place)) {
+				statesMap.put(x.state, x);
 				return true;
-			} else {
+			} 
+			else if (x.city.equals(place)) {
+				cityMap.put(x.city, x);
+				return true;
+			} 
+			else {
 				return false;
 			}
 		});
+		for (Map.Entry<String, Contact> entry : statesMap.entrySet())
+			System.out.println(entry.getValue());
+
+		for (Map.Entry<String, Contact> entry : cityMap.entrySet())
+			System.out.println(entry.getValue());
 
 	}
 
