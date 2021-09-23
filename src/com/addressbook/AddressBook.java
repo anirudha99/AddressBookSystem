@@ -1,5 +1,6 @@
 package com.addressbook;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
 
 public class AddressBook {
 	String addressBookName;
+	
 	static Scanner sc = new Scanner(System.in);
 
 	Map<String, Contact> contacts;
@@ -76,7 +78,6 @@ public class AddressBook {
 		String phone_number = sc.nextLine();
 
 		System.out.println("Enter the email Id ");
-<<<<<<< HEAD
 		String email = sc.nextLine();
 
 		contact = new Contact(first_name,last_name,address,city,state,zip,phone_number,email);
@@ -96,17 +97,6 @@ public class AddressBook {
 			System.out.println("Adding details");
 			contacts.put(first_name + " " + last_name, contact);
 		} 
-=======
-		String email=sc.nextLine();
-
-		Contact contact = new Contact(first_name,last_name,address,city,state,zip,phone_number,email);
-		String name=first_name + " "+last_name;
-		Contact c = addressBook.get(name);
-		if(c != null) {
-			//checks for duplicate value while adding
-			System.out.println("There is already a person with this name ");
-		}
->>>>>>> ab785ac2f676cec872353072d06687b5c2ef33f9
 		else {
 			if (streamSupplier.get().anyMatch(x -> x.equals(name))) {
 				System.out.println("There is already a person with this name ");
@@ -117,13 +107,9 @@ public class AddressBook {
 		}
 	}
 
-<<<<<<< HEAD
-
-=======
 	/**
 	 * edit contact
 	 */
->>>>>>> ab785ac2f676cec872353072d06687b5c2ef33f9
 	public void editContactPerson() {
 		System.out.println("enter the first name");
 		String fname = sc.nextLine();
@@ -220,6 +206,31 @@ public class AddressBook {
 	public void print() {
 		for (Map.Entry<String, Contact> entry : contacts.entrySet())
 			System.out.println(entry.getValue());
+	}
+
+	/**
+	 * @param place
+	 * method to search by the place 
+	 */
+	public void search(String place) {
+		Set<Map.Entry<String, Contact>> entries = contacts.entrySet();
+		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+
+		Set<String> keySet = contacts.keySet();
+		Collection<Contact> values = contacts.values();
+
+		Stream<Contact> valuesStream = values.stream();
+		Stream<String> keysStream = keySet.stream();
+
+		valuesStream.anyMatch((x) -> {
+			if (x.city.equals(place) || x.state.equals(place)) {
+				System.out.println(x);
+				return true;
+			} else {
+				return false;
+			}
+		});
+
 	}
 
 }

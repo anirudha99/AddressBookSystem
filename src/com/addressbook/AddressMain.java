@@ -19,7 +19,8 @@ public class AddressMain {
 		while(choice != EXIT) {
 
 			System.out.println("Address book options");
-			System.out.println("1) Add Address Book\n2) Add Contact\n3) Edit Contact\n4) Display Contacts in Addressbook\n5) Delete Contact\n"+EXIT+" to exit");
+			System.out.println("1) Add Address Book\n2) Add Contact\n3) Edit Contact\n4) Display Contacts in Addressbook\n"
+					+ "5) Delete Contact\n6) Search by place\n"+EXIT+" to exit");
 			choice = sc.nextInt(); 		//take user choice
 
 			switch(choice) {
@@ -37,6 +38,9 @@ public class AddressMain {
 				break;
 			case 5:
 				deleteContact();		//delete contact
+				break;
+			case 6:
+				searchPlace();
 				break;
 			}
 		}
@@ -118,6 +122,19 @@ public class AddressMain {
 		else {
 			addressBook.get(bookName).deleteContactPerson(); //delete
 		}
+	}
+	
+	/**
+	 * Search method
+	 */
+	private static void searchPlace() {
+		System.out.println("Enter the city or state name");
+		String place = sc.next();
+		for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+			AddressBook obj = entry.getValue();
+			obj.search(place);
+		}
+
 	}
 
 }
