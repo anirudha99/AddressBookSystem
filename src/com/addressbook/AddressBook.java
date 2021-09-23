@@ -47,6 +47,7 @@ public class AddressBook {
 		String name=first_name + " "+last_name;
 		Contact c = addressBook.get(name);
 		if(c != null) {
+			//checks for duplicate value while adding
 			System.out.println("There is already a person with this name ");
 		}
 		else {
