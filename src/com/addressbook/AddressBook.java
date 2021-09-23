@@ -48,6 +48,9 @@ public class AddressBook {
 		this.addressBookName = addressBookName;
 	}
 
+	/**
+	 * add contact 
+	 */
 	public void addContact() {
 		Contact contact;
 		System.out.println("Enter the Contact Details");
@@ -73,6 +76,7 @@ public class AddressBook {
 		String phone_number = sc.nextLine();
 
 		System.out.println("Enter the email Id ");
+<<<<<<< HEAD
 		String email = sc.nextLine();
 
 		contact = new Contact(first_name,last_name,address,city,state,zip,phone_number,email);
@@ -92,6 +96,17 @@ public class AddressBook {
 			System.out.println("Adding details");
 			contacts.put(first_name + " " + last_name, contact);
 		} 
+=======
+		String email=sc.nextLine();
+
+		Contact contact = new Contact(first_name,last_name,address,city,state,zip,phone_number,email);
+		String name=first_name + " "+last_name;
+		Contact c = addressBook.get(name);
+		if(c != null) {
+			//checks for duplicate value while adding
+			System.out.println("There is already a person with this name ");
+		}
+>>>>>>> ab785ac2f676cec872353072d06687b5c2ef33f9
 		else {
 			if (streamSupplier.get().anyMatch(x -> x.equals(name))) {
 				System.out.println("There is already a person with this name ");
@@ -102,7 +117,13 @@ public class AddressBook {
 		}
 	}
 
+<<<<<<< HEAD
 
+=======
+	/**
+	 * edit contact
+	 */
+>>>>>>> ab785ac2f676cec872353072d06687b5c2ef33f9
 	public void editContactPerson() {
 		System.out.println("enter the first name");
 		String fname = sc.nextLine();
@@ -170,6 +191,9 @@ public class AddressBook {
 		}
 	}
 
+	/**
+	 * delete contact
+	 */
 	public void deleteContactPerson() {
 
 		System.out.println("Enter First name of the contact to be deleted");
@@ -190,6 +214,9 @@ public class AddressBook {
 		}
 	}
 
+	/**
+	 * print contact
+	 */
 	public void print() {
 		for (Map.Entry<String, Contact> entry : contacts.entrySet())
 			System.out.println(entry.getValue());
