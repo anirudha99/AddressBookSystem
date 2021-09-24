@@ -46,12 +46,12 @@ public class AddressMain {
 		}
 		System.out.println("Goodbye!");
 	}
-	
-	
+
+
 	public static void addAddressBook() {
 		System.out.println("Enter the addressbook name");
 		String bookName = sc.next();
-		
+
 		AddressBook book = addressBook.get(bookName);
 		if(book != null) {
 			System.out.println("Already has a address book of that name! Enter new name!");
@@ -76,7 +76,7 @@ public class AddressMain {
 			addressBook.get(addbook).addContact(); //add
 		}
 	}
-	
+
 	/**
 	 * @method to edit contact
 	 */
@@ -123,18 +123,21 @@ public class AddressMain {
 			addressBook.get(bookName).deleteContactPerson(); //delete
 		}
 	}
-	
+
 	/**
 	 * Search method
 	 */
 	private static void searchPlace() {
 		System.out.println("Enter the city or state name");
 		String place = sc.next();
+		int count = 0;
+
 		for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
 			AddressBook obj = entry.getValue();
 			obj.search(place);
+			count += obj.search(place);
 		}
-
+		System.out.println(count+" contacts found based on your choice of place");
 	}
 
 }
