@@ -21,7 +21,7 @@ public class AddressMain {
 			System.out.println("Address book options");
 			System.out.println("1) Add Address Book\n2) Add Contact\n3) Edit Contact\n4) Display Contacts in Addressbook\n"
 					+ "5) Delete Contact\n6) Search by place\n"
-					+ "7) Sort by name\n"+EXIT+" to exit");
+					+ "7) Sort by name\n8) Sort by place\n"+EXIT+" to exit");
 			choice = sc.nextInt(); 		//take user choice
 
 			switch(choice) {
@@ -46,9 +46,36 @@ public class AddressMain {
 			case 7:
 				sortByName();
 				break;
+			case 8:
+				sortByPlace();
+				break;
 			}
 		}
 		System.out.println("Goodbye!");
+	}
+
+
+	private static void sortByPlace() {
+		System.out.println("How do you wanna sort\n1:By Zip code\n2: By City name\n3: By State name");
+		Scanner m = new Scanner(System.in);
+		int ch = m.nextInt();
+		switch(ch) {
+		case 1:for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+			AddressBook obj = entry.getValue();
+			obj.sortZip();
+		}
+		break;
+		case 2:for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+			AddressBook obj = entry.getValue();
+			obj.sortCity();
+		}
+		break;
+		case 3:for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+			AddressBook obj = entry.getValue();
+			obj.sortState();
+		}
+		break;
+		}		
 	}
 
 

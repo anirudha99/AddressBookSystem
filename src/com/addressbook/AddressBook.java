@@ -273,6 +273,9 @@ public class AddressBook {
 		return statesMap.size();
 	}
 
+	/**
+	 * Method to sort names
+	 */
 	public void sort() {
 
 		Map<String, Contact> sortedContact = contacts.entrySet().stream().sorted(Map.Entry.comparingByKey())
@@ -283,6 +286,57 @@ public class AddressBook {
 
 			System.out.println(entry.getValue());
 		}
+		System.out.println("-------------------------------------------------------------");
+	}
+	
+	/**
+	 * Method to sort zip codes
+	 */
+	public void sortZip() {
+		Set<Map.Entry<String, Contact>> entries = contacts.entrySet();
+		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+
+		Set<String> keySet = contacts.keySet();
+		Collection<Contact> values = contacts.values();
+
+		Stream<Contact> valuesStream = values.stream();
+		Stream<String> keysStream = keySet.stream();
+
+		valuesStream.sorted((p1, p2) -> p1.zip.compareTo(p2.zip)).forEach(System.out::println);
+		System.out.println("-------------------------------------------------------------");
+	}
+	
+	/**
+	 * Method to sort city names
+	 */
+	public void sortCity() {
+		Set<Map.Entry<String, Contact>> entries = contacts.entrySet();
+		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+
+		Set<String> keySet = contacts.keySet();
+		Collection<Contact> values = contacts.values();
+
+		Stream<Contact> valuesStream = values.stream();
+		Stream<String> keysStream = keySet.stream();
+
+		valuesStream.sorted((p1, p2) -> p1.city.compareTo(p2.city)).forEach(System.out::println);
+		System.out.println("-------------------------------------------------------------");
+	}
+
+	/**
+	 * Method to sort state names
+	 */
+	public void sortState() {
+		Set<Map.Entry<String, Contact>> entries = contacts.entrySet();
+		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+
+		Set<String> keySet = contacts.keySet();
+		Collection<Contact> values = contacts.values();
+
+		Stream<Contact> valuesStream = values.stream();
+		Stream<String> keysStream = keySet.stream();
+
+		valuesStream.sorted((p1, p2) -> p1.state.compareTo(p2.state)).forEach(System.out::println);
 		System.out.println("-------------------------------------------------------------");
 	}
 
