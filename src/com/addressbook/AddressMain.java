@@ -20,7 +20,8 @@ public class AddressMain {
 
 			System.out.println("Address book options");
 			System.out.println("1) Add Address Book\n2) Add Contact\n3) Edit Contact\n4) Display Contacts in Addressbook\n"
-					+ "5) Delete Contact\n6) Search by place\n"+EXIT+" to exit");
+					+ "5) Delete Contact\n6) Search by place\n"
+					+ "7) Sort by name\n"+EXIT+" to exit");
 			choice = sc.nextInt(); 		//take user choice
 
 			switch(choice) {
@@ -42,9 +43,20 @@ public class AddressMain {
 			case 6:
 				searchPlace();
 				break;
+			case 7:
+				sortByName();
+				break;
 			}
 		}
 		System.out.println("Goodbye!");
+	}
+
+
+	private static void sortByName() {
+		for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+			AddressBook obj = entry.getValue();
+			obj.sort();
+		}
 	}
 
 
@@ -128,16 +140,29 @@ public class AddressMain {
 	 * Search method
 	 */
 	private static void searchPlace() {
-		System.out.println("Enter the city or state name");
-		String place = sc.next();
-		int count = 0;
-
-		for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
-			AddressBook obj = entry.getValue();
-			obj.search(place);
-			count += obj.search(place);
+		System.out.println("Enter the either\n 1: city name\n 2: state name");
+		int choice = sc.nextInt();
+		if (choice == 1) {
+			Scanner r1 = new Scanner(System.in);
+			System.out.println("Enter city name");
+			String place = sc.next();
+			int count = 0;
+			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+				AddressBook obj = entry.getValue();
+				count += obj.searchCity(place);
+			}
+			System.out.println(count + " contact found based on place of your choice");
 		}
-		System.out.println(count+" contacts found based on your choice of place");
+		else if (choice == 2) {
+			System.out.println("Enter state name");
+			String place = sc.next();
+			int count = 0;
+			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+				AddressBook obj = entry.getValue();
+				count += obj.searchState(place);
+			}
+			System.out.println(count + " contact found based on place of your choice");
+		}
 	}
 
 }
