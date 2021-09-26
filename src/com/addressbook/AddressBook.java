@@ -1,6 +1,7 @@
 package com.addressbook;
 
 import java.util.Collection;
+
 import java.util.HashMap;
 
 import java.util.HashSet;
@@ -11,6 +12,8 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+import java.util.stream.Collectors;
+import java.util.*;
 
 public class AddressBook {
 	String addressBookName;
@@ -212,10 +215,38 @@ public class AddressBook {
 	 * @param place
 	 * method to search by the place 
 	 */
-	public int search(String place) {
+	public int searchCity(String place) {
+
+		Map<String, Contact> cityMap = new HashMap<>();
+
+		Set<Map.Entry<String, Contact>> entries = contacts.entrySet();
+		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
+
+		Set<String> keySet = contacts.keySet();
+		Collection<Contact> values = contacts.values();
+
+		Stream<Contact> valuesStream = values.stream();
+		Stream<String> keysStream = keySet.stream();
+
+		valuesStream.anyMatch((x) -> {
+			if (x.city.equals(place)) {
+				cityMap.put(x.city, x);
+				return true;
+			} 
+			else {
+				return false;
+			}
+		});
+
+		for (Map.Entry<String, Contact> entry : cityMap.entrySet())
+			System.out.println(entry.getValue());
+
+		return cityMap.size();
+	}
+
+	public int searchState(String place) {
 
 		Map<String, Contact> statesMap = new HashMap<>();
-		Map<String, Contact> cityMap = new HashMap<>();
 
 		Set<Map.Entry<String, Contact>> entries = contacts.entrySet();
 		Stream<Map.Entry<String, Contact>> entriesStream = entries.stream();
@@ -231,22 +262,28 @@ public class AddressBook {
 				statesMap.put(x.state, x);
 				return true;
 			} 
-			else if (x.city.equals(place)) {
-				cityMap.put(x.city, x);
-				return true;
-			} 
 			else {
 				return false;
 			}
 		});
-		for (Map.Entry<String, Contact> entry : statesMap.entrySet()) {
+
+		for (Map.Entry<String, Contact> entry : statesMap.entrySet())
+			System.out.println(entry.getValue());
+
+		return statesMap.size();
+	}
+
+	public void sort() {
+
+		Map<String, Contact> sortedContact = contacts.entrySet().stream().sorted(Map.Entry.comparingByKey())
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
+						LinkedHashMap::new));
+
+		for (Map.Entry<String, Contact> entry : sortedContact.entrySet()) {
+
 			System.out.println(entry.getValue());
 		}
-
-		for (Map.Entry<String, Contact> entry : cityMap.entrySet())
-			System.out.println(entry.getValue());
-		
-		return statesMap.size() + cityMap.size();
+		System.out.println("-------------------------------------------------------------");
 	}
 
 }
