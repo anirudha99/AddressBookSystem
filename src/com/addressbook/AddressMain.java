@@ -18,16 +18,18 @@ public class AddressMain {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book System!"); //Welcome message
 
-		final int EXIT = 11; //exit value
+		final int EXIT = 15; //exit value
 
 		int choice = 0;
 		while(choice != EXIT) {
 
 			System.out.println("Address book options");
-			System.out.println("1) Add Address Book\n2) Add Contact\n3) Edit Contact\n4) Display Contacts in Addressbook\n"
+			System.out.println("1) Add Address Book\n2) Add Contact\n"
+					+ "3) Edit Contact\n4) Display Contacts in Addressbook\n"
 					+ "5) Delete Contact\n6) Search by place\n"
 					+ "7) Sort by name\n8) Sort by place\n"
-					+ "9) Read from file\n110) Write into file\n"
+					+ "9) Read from file\n10) Write into file\n"
+					+ "11) Read from CSV file\n12) Write into CSV file\n"
 					+EXIT+" to exit");
 			choice = sc.nextInt(); 		//take user choice
 
@@ -48,19 +50,25 @@ public class AddressMain {
 				deleteContact();		//delete contact
 				break;
 			case 6:
-				searchPlace();
+				searchPlace();			//search by place
 				break;
 			case 7:
-				sortByName();
+				sortByName();			//sort by name
 				break;
 			case 8:
-				sortByPlace();
+				sortByPlace();			//sort by place
 				break;
 			case 9:
-				readFile();
+				readFile();				//file io operation - to read
 				break;
 			case 10:
-				writeToFile();
+				writeToFile();			//file io operation - to write
+				break;
+			case 11:
+				readFromCsv();
+				break;
+			case 12:
+				writeTocsv();
 				break;
 			}
 		}
@@ -68,6 +76,43 @@ public class AddressMain {
 	}
 
 
+	/**
+	 * Method to write into the csv file
+	 */
+	private static void writeTocsv() {
+		String basePath = "/Users/anirudhasm/Desktop/eclipse-yml_training_workspace/AddressBookSystem/csvresource";		
+		System.out.println("Enter the address book you wanna write");
+		String fileName = sc.next();
+		AddressBook Book = addressBook.get(fileName);
+		if (Book == null) {
+			System.out.println("No book found");
+			return;
+		}
+		addressBook.get(fileName).writeContactCsv(basePath + "/" + fileName + ".csv");
+	}
+
+
+	/**
+	 * Method to read from the csv file
+	 */
+	private static void readFromCsv() {
+		String basePath = "/Users/anirudhasm/Desktop/eclipse-yml_training_workspace/AddressBookSystem/csvresource";
+		System.out.println("Enter the address book you wanna read");
+		String filename = sc.next();
+		File file = new File(basePath + "/" + filename + ".csv");
+		if (!file.exists()) {
+			System.out.println("Address book not found");
+			return;
+		}
+		AddressBook adBook = new AddressBook(filename);
+		addressBook.put(filename, adBook);
+		adBook.addContactCsv(basePath + "/" + filename + ".csv");
+	}
+
+
+	/**
+	 * Method to write into file
+	 */
 	private static void writeToFile() {
 		String basePath = "/Users/anirudhasm/Desktop/eclipse-yml_training_workspace/AddressBookSystem/data";
 		System.out.println("Enter the address book you wanna write");
@@ -81,6 +126,9 @@ public class AddressMain {
 	}
 
 
+	/**
+	 * Method to read from the file
+	 */
 	private static void readFile() {
 		String basePath = "/Users/anirudhasm/Desktop/eclipse-yml_training_workspace/AddressBookSystem/data";
 		System.out.println("Enter the address book you wanna read");
