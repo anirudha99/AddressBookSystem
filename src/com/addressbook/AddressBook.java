@@ -4,7 +4,9 @@ import java.util.Collection;
 
 
 import java.util.HashMap;
-
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
@@ -16,6 +18,9 @@ import java.util.stream.Stream;
 import java.util.stream.Collectors;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -341,7 +346,7 @@ public class AddressBook {
 		valuesStream.sorted((p1, p2) -> p1.state.compareTo(p2.state)).forEach(System.out::println);
 		System.out.println("-------------------------------------------------------------");
 	}
-	
+
 	/**
 	 * Method to read the file
 	 * @param br
@@ -349,14 +354,14 @@ public class AddressBook {
 	public void addContactFile(BufferedReader br) {
 		Contact contact;
 		String row;
-		
+
 		try {
 			while((row = br.readLine()) != null) {
 				String [] data = row.split(",");
 				contact = new Contact(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
 				String name = data[0] + " " + data[1];
 				Contact c = contacts.get(name);
-				
+
 				if (c == null) {
 					contacts.put(name, contact);
 				}
@@ -366,7 +371,7 @@ public class AddressBook {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Method to write the contact into the file
 	 * @param fileName
@@ -374,7 +379,6 @@ public class AddressBook {
 	public void writeContact(String fileName) {
 		try {
 			BufferedWriter f_writer = new BufferedWriter(new FileWriter(fileName, false));
-			String str = "Hello";
 			for (Contact c : contacts.values()) {
 				f_writer.write(String.join(",", c.first_name, c.last_name, c.address, c.city, c.state, c.zip,
 						c.phone_number, c.email));
@@ -386,6 +390,65 @@ public class AddressBook {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Reads file of csv type and adds contact
+	 * @param file
+	 */
+	public void addContactCsv(String file) {
+		FileReader filereader;
+		try {
+			// Create an object of filereader class
+			// with CSV file as a parameter.
+			filereader = new FileReader(file);
+			// create csvReader object
+			// and skip first Line
+			CSVReader csvReader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+			List<String[]> allData = csvReader.readAll();
+			Contact contact;
+			// print Data
+			for (String[] row : allData) {
+				contact = new Contact(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+				String name = row[0] + " " + row[1];
+				Contact c = contacts.get(name);
+
+				if (c == null) {
+					contacts.put(name, contact);
+				}
+			}
+			System.out.println();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void writeContactCsv(String filePath) {
+		File file = new File(filePath);
+		try {
+			// create FileWriter object with file as parameter
+			FileWriter outputfile = new FileWriter(file);
+
+			// create CSVWriter object filewriter object as parameter
+			CSVWriter writer = new CSVWriter(outputfile, ',', CSVWriter.NO_QUOTE_CHARACTER,
+					CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+			// adding header to csv
+			String[] header = { "FistName", "Lastname", "Address", "City", "State", "Zip", "Phone Number", "Email" };
+			writer.writeNext(header);
+
+			for (Contact c : contacts.values()) {
+				String[] data1 = { c.first_name, c.last_name, c.address, c.city, c.state, c.zip, c.phone_number, c.email};
+				writer.writeNext(data1);
+			}
+
+			// closing writer connection
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 }
 
