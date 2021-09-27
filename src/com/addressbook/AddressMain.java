@@ -30,6 +30,7 @@ public class AddressMain {
 					+ "7) Sort by name\n8) Sort by place\n"
 					+ "9) Read from file\n10) Write into file\n"
 					+ "11) Read from CSV file\n12) Write into CSV file\n"
+					+ "13) Read from json file\n14) Write into json file\n"
 					+EXIT+" to exit");
 			choice = sc.nextInt(); 		//take user choice
 
@@ -70,9 +71,46 @@ public class AddressMain {
 			case 12:
 				writeTocsv();
 				break;
+			case 13:
+				readFromJson();
+				break;
+			case 14:
+				writeToJson();
+				break;
 			}
 		}
 		System.out.println("Goodbye!");
+	}
+
+
+	private static void writeToJson() {
+		String basePath = "/Users/anirudhasm/Desktop/eclipse-yml_training_workspace/AddressBookSystem/csvresource";
+		System.out.println("Enter the address book you wanna write");
+		String fileName = sc.next();
+		AddressBook Book = addressBook.get(fileName);
+		if (Book == null) {
+			System.out.println("No book found");
+			return;
+
+		}
+		addressBook.get(fileName).writeContactJson(basePath + "/" + fileName + ".json");
+
+	}
+
+
+	private static void readFromJson() {
+		String basePath = "/Users/anirudhasm/Desktop/eclipse-yml_training_workspace/AddressBookSystem/csvresource";
+		System.out.println("Enter the address book you wanna read");
+		String filename = sc.next();
+		File file = new File(basePath + "/" + filename + ".json");
+		if (!file.exists()) {
+			System.out.println("Address book not found");
+			return;
+		}
+		AddressBook adBook = new AddressBook(filename);
+		addressBook.put(filename, adBook);
+		adBook.addContactJson(basePath + "/" + filename + ".json");
+
 	}
 
 

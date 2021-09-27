@@ -2,11 +2,12 @@ package com.addressbook;
 
 import java.util.Collection;
 
-
-import java.util.HashMap;
+import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
@@ -398,7 +399,7 @@ public class AddressBook {
 	public void addContactCsv(String file) {
 		FileReader filereader;
 		try {
-			// Create an object of filereader class
+			// Create an object of file reader class
 			// with CSV file as a parameter.
 			filereader = new FileReader(file);
 			// create csvReader object
@@ -447,6 +448,49 @@ public class AddressBook {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Method to write into file using gson
+	 * @param file
+	 */
+	public void writeContactJson(String file) {
+		Gson gson = new Gson();
+		try {
+			FileWriter writer = new FileWriter(file);
+			for (Contact c : contacts.values()) {
+				String json = gson.toJson(c);
+
+				writer.write(json);
+				writer.write("\n");
+
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Method to read from file using gson
+	 * @param file
+	 */
+	public void addContactJson(String file) {
+		Gson gson = new Gson();
+		try {
+			System.out.println("Reading JSON from a file");
+			System.out.println("----------------------------");
+
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			Contact contactObj = gson.fromJson(br, Contact.class);
+			Contact c = contacts.get(contactObj.first_name + contactObj.last_name);
+			if (c == null) {
+				contacts.put(contactObj.first_name + contactObj.last_name, contactObj);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 
